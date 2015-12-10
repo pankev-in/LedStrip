@@ -111,9 +111,7 @@ void loop(){
       startmode();
       break;
     case 2:       // Stop Mode:
-      if(runningTF == true){
-        stopmode();
-      }
+      stopmode();
       break;
     case 3:       // Config Mode:
       configmode();
@@ -147,26 +145,21 @@ void startmode(){
 //  delay(100);
   
   //Eiszapfen:
-  for(int i=0; i<=LEDNUMBER; i++){
-    if(i < currentDropPos){
-      strip.setPixelColor(i, color1); //change RGB color value here 
+    for(int i = 0; i < 90; i++) { 
+        strip.setPixelColor(i, color1);
     }
-    else if( i>= currentDropPos && i < (currentDropPos+3)){
-      strip.setPixelColor(i, color2);
+    for(int i = 0; i < 8; i++) { 
+        strip.setPixelColor(LEDNUMBER-i, color2);
+    }    
+    for(int dot = 90; dot < LEDNUMBER; dot++) { 
+      for(int i = 0; i<5;i++){
+        strip.setPixelColor(dot+i, color2);
+       }
+       strip.show();
+      for(int i = 0; i<5;i++){
+        strip.setPixelColor(dot+i, strip.Color(0,0,0)); 
+       }
     }
-    else if ( i >= (LEDNUMBER - 3) && currentDropPos != 90){
-       strip.setPixelColor(i, color2);
-    }
-    else{
-       strip.setPixelColor(i, strip.Color(0,0,0)); 
-    }
-  }
-  strip.show();
-  currentDropPos = currentDropPos +3;
-  if(currentDropPos > LEDNUMBER ){
-    currentDropPos = 90;
-  }
-  runningTF = true;
 }
 
 void stopmode(){
@@ -177,7 +170,7 @@ void stopmode(){
     strip.setPixelColor(i, strip.Color(0,0,0)); //change RGB color value here
   }
   strip.show();
-  runningTF = false;
+  delay(500);
 }
 
 void configmode(){
@@ -200,6 +193,5 @@ void configmode(){
   }
   strip.show();
   delay(500);
-  runningTF = false;
 }
 
